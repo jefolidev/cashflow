@@ -11,11 +11,23 @@ public class ExpensesController : ControllerBase
     [HttpPost]
     public IActionResult Register([FromBody] RequestRegisterExpense request)
     {
-        var sut = new RegisterExpenseUseCase();
+        try
+        {
+            var sut = new RegisterExpenseUseCase();
 
-        var response = sut.Execute(request);
+            var response = sut.Execute(request);
 
-        return Created(string.Empty, response);
+            return Created(string.Empty, response);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Unknown Error.");
+        }
+
     }
 
 }
