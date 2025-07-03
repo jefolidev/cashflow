@@ -1,6 +1,7 @@
 ﻿using CashFlow.Communication.Enums;
 
 namespace CashFlow.Communication.Requests;
+
 public class RequestRegisterExpense
 {
     public string Title { get; set; } = string.Empty;

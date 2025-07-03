@@ -14,13 +14,16 @@ public class RegisterExpenseUseCase
 
     public void Validate(RequestRegisterExpense request)
     {
-        var validator = new RegisterExpenseValidator();
+        RegisterExpenseValidator validator = new();
 
         var result = validator.Validate(request);
 
         if(!result.IsValid)
         {
-            var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
+            List<string> errorMessages = result
+                .Errors
+                .Select(error => error.ErrorMessage)
+                .ToList();
 
             throw new ErrorOnValidationException(errorMessages);
         }
